@@ -20,7 +20,7 @@ class YoutubeController < ApplicationController
     service.list_searches(:snippet, opt)
   end
   def search
-    @youtube_data = find_videos('スポーツ')
+    @youtube_data = find_videos(params[:keyword])
   end
   def index
     
