@@ -12,7 +12,7 @@ class YoutubeController < ApplicationController
       q: keyword,
       type: 'video',
       max_results: 1,
-      order: :date,
+      order: :viewCount,
       page_token: next_page_token,
       published_after: after.iso8601,
       published_before: before.iso8601
