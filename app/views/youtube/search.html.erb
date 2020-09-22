@@ -1,7 +1,11 @@
 <h1>検索結果</h1>
+<h1>キーワード</h1>
 <% @youtube_data.items.each do |item| %>
   <% snippet = item.snippet %>
-  <p><%= snippet.title %></p>
-  <p><%= snippet.published_at %><%= snippet.channel_title %></p>
+  <p>タイトル　<%= snippet.title %></p>
+  <p>投稿日　<%= snippet.published_at %></p>
+  <p>チャンネル名　<%= snippet.channel_title %></p>
+  <p>URL　<%= "https://www.youtube.com/watch?v=#{item.id.video_id}" %></p>
+  <p>サムネURL　<%= snippet.thumbnails.high.url %></p>
   <div><iframe width="560" height="315" src="https://www.youtube.com/embed/<%= item.id.video_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 <% end %>
