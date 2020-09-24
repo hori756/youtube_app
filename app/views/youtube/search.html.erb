@@ -1,5 +1,7 @@
 <h1>検索結果</h1>
 <h1>キーワード</h1>
+<%#= @youtube_data.to_h %>
+<%= @youtube_data_count %>
 <% @youtube_data.items.each do |item| %>
   <% snippet = item.snippet %>
   <p>タイトル　<%= snippet.title %></p>
