@@ -32,4 +32,4 @@ rails db:migrate<br>
 
 環境<br>
 rails6.0<br>
-ruby2.6.5'
+ruby2.6.5
