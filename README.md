@@ -19,15 +19,13 @@ youtubuでは出来ない詳細な検索を行えるようにする
 | 2    | 詳細検索機能   | null: false                   |
 | 1    | 検索結果出力シート作成機能 | null: false                   |
 
-| 優先順位           | 目的       | ストーリー(ユースケース)               |
-| ---------------- | ---------- | ----------------------------- |
-| purchase        | references | null: false foreign_key: true |
-| post_code        | string     | null: false                   |
-| prefecture_id    | integer    | null: false                   |
-| city             | string     | null: false                   |
-| address          | string     | null: false                   |
-| build_name       | string     |                               |
-| phone_number     | string     | null: false                   |
+| 優先順位           | 目的       | ストーリー(ユースケース)   |   |
+| ---------------- | ---------- | ----------------------------- |   |
+| purchase        | references | null: false foreign_key: true |   |
+| post_code        | string     | null: false                   |   |
+| prefecture_id    | integer    | null: false                   |   |
+| city             | string     | null: false                   |   |
+| address          | string     | null: false                   |   |
 
 
 # 実装した機能についてのGIFと説明
