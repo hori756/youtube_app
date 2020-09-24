@@ -15,9 +15,19 @@ youtubuでは出来ない詳細な検索を行えるようにする
 # 洗い出した要件
 | 優先順位   | 目的       | 詳細 |ストーリー(ユースケース)|見積もり（所要時間）|
 | ---------------- | ---------- | ----------------------------- |
-| 3 | 検索機能 | null: false foreign_key: true |
+| 3         | 検索機能 | null: false foreign_key: true |
 | 2    | 詳細検索機能   | null: false                   |
 | 1    | 検索結果出力シート作成機能 | null: false                   |
+
+| Column           | Type       | Options                       |
+| ---------------- | ---------- | ----------------------------- |
+| purchase        | references | null: false foreign_key: true |
+| post_code        | string     | null: false                   |
+| prefecture_id    | integer    | null: false                   |
+| city             | string     | null: false                   |
+| address          | string     | null: false                   |
+| build_name       | string     |                               |
+| phone_number     | string     | null: false                   |
 
 
 # 実装した機能についてのGIFと説明
