@@ -19,7 +19,7 @@ youtubuでは出来ない詳細な検索を行えるようにする
 | 2    | 詳細検索機能   | null: false                   |
 | 1    | 検索結果出力シート作成機能 | null: false                   |
 
-| 優先順位           | 目的       | 詳細   | ストーリー(ユースケース) |見積もり（所要時間）|
+| 優先順位           | 目的       | 詳細   | ストーリー(ユースケース) |
 | ---------------- | ---------- | ----------------------------- |
 | purchase        | references | null: false foreign_key: true |
 | post_code        | string     | null: false                   |
