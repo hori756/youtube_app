@@ -1,7 +1,12 @@
 <h1>検索結果</h1>
 <h1>キーワード</h1>
 <%#= @youtube_data.to_h %>
-<%= @youtube_data_count %>
+<%#=@youtube_data_count2.to_h%>　
+<p>再生数<%=@youtube_data_count2.to_h[:items][0][:statistics][:view_count]%>　</p>
+<p>高評価<%=@youtube_data_count2.to_h[:items][0][:statistics][:like_count]%>　</p>
+<p>低評価<%=@youtube_data_count2.to_h[:items][0][:statistics][:dislike_count]%>　</p>
+<p>コメント数<%=@youtube_data_count2.to_h[:items][0][:statistics][:comment_count]%>　</p>
+
 <% @youtube_data.items.each do |item| %>
   <% snippet = item.snippet %>
   <p>タイトル　<%= snippet.title %></p>
@@ -10,4 +15,5 @@
   <p>URL　<%= "https://www.youtube.com/watch?v=#{item.id.video_id}" %></p>
   <p>サムネURL　<%= snippet.thumbnails.high.url %></p>
   <div><iframe width="560" height="315" src="https://www.youtube.com/embed/<%= item.id.video_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+  <br>
 <% end %>
