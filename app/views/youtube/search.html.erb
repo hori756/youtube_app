@@ -1,16 +1,16 @@
 <h1>検索結果</h1>
 <h1>キーワード</h1>
-<%= @youtube_data.to_h[:items][0][:snippet] %>
+<%#= @youtube_data.to_h[:items][0][:snippet] %>
 <%#=@youtube_data_count2%>
 
 
 <%cnt=2%>
 <%cnt.times do |timescount|%>
   <p>タイトル<%= @youtube_data.to_h[:items][timescount][:snippet][:title] %> </p>
-  <p>再生数<%=@youtube_data_count2[timescount][:items][0][:statistics][:view_count]%> </p>
-  <p>高評価<%=@youtube_data_count2[timescount][:items][0][:statistics][:like_count]%> </p>
-  <p>低評価<%=@youtube_data_count2[timescount][:items][0][:statistics][:dislike_count]%> </p>
-  <p>コメント数<%=@youtube_data_count2[timescount][:items][0][:statistics][:comment_count]%> </p>
+  <p>再生数<%=@youtube_data_count[timescount][:items][0][:statistics][:view_count]%> </p>
+  <p>高評価<%=@youtube_data_count[timescount][:items][0][:statistics][:like_count]%> </p>
+  <p>低評価<%=@youtube_data_count[timescount][:items][0][:statistics][:dislike_count]%> </p>
+  <p>コメント数<%=@youtube_data_count[timescount][:items][0][:statistics][:comment_count]%> </p>
   <p>投稿日 <%= @youtube_data.to_h[:items][timescount][:snippet][:published_at] %> </p>
   <p>チャンネル名 <%= @youtube_data.to_h[:items][timescount][:snippet][:channel_title] %></p>
   <p>URL <%= "https://www.youtube.com/watch?v=#{@youtube_data.to_h[:items][timescount][:id][:video_id]}" %></p>
@@ -18,4 +18,3 @@
   <div><iframe width="560" height="315" src="https://www.youtube.com/embed/<%=@youtube_data.to_h[:items][timescount][:id][:video_id]%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 <% end %>
-

@@ -1,5 +1,5 @@
 class YoutubeController < ApplicationController
-  GOOGLE_API_KEY = "AIzaSyDBquVrXQZ--j7h6kMUVgtM_LziXr3HunY"
+  GOOGLE_API_KEY = "AIzaSyCcXytS7jcys5DMjPTonbicSoK6k0eiwY0"
   #Rails.application.credentials.google[:api_key]
 
   def find_videos(keyword, after: 100.years.ago, before: Time.now)
@@ -20,10 +20,10 @@ class YoutubeController < ApplicationController
     results = service.list_searches(:snippet, opt)
     
     #@video_title = response[:items][0][:snippet][:title]
-    #video_id = response[:items][0][:id][:videoId]
+    #video_id = response[:items][0][:id][:video_id]
   end
 
-  def count_videos(youtube_data)
+  def find_video_id(youtube_data)
 
     results_items = youtube_data.to_h
 
@@ -38,14 +38,14 @@ class YoutubeController < ApplicationController
 
   end
 
-  def count_videos2(youtube_data_count)
+  def count_videos(youtube_data_video_id)
     service = Google::Apis::YoutubeV3::YouTubeService.new
     service.key = GOOGLE_API_KEY
-    video_cnt_get = service.list_videos(:statistics, id: youtube_data_count[0])
+    video_cnt_get = service.list_videos(:statistics, id: youtube_data_video_id[0])
     video_cnt_get_h = video_cnt_get.to_h
     i=[]
     i << video_cnt_get_h
-    video_cnt_get = service.list_videos(:statistics, id: youtube_data_count[1])
+    video_cnt_get = service.list_videos(:statistics, id: youtube_data_video_id[1])
     video_cnt_get_h = video_cnt_get.to_h
     i << video_cnt_get_h
       #video_cnt_get = service.list_videos(:statistics, id: video_id)
@@ -55,8 +55,8 @@ class YoutubeController < ApplicationController
 
   def search
     @youtube_data = find_videos(params[:keyword])
-    @youtube_data_count = count_videos(@youtube_data)
-    @youtube_data_count2 = count_videos2(@youtube_data_count)
+    @youtube_data_video_id = find_video_id(@youtube_data)
+    @youtube_data_count = count_videos(@youtube_data_video_id)
 
   end
   def index
