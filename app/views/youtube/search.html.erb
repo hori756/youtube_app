@@ -1,27 +1,21 @@
 <h1>検索結果</h1>
 <h1>キーワード</h1>
-<%#= @youtube_data.to_h %>
+<%= @youtube_data.to_h[:items][0][:snippet] %>
+<%#=@youtube_data_count2%>
 
-<%i=5%>
-<%i.times do |timesCount|%>
-<%= timesCount%>
+
+<%cnt=2%>
+<%cnt.times do |timescount|%>
+  <p>タイトル<%= @youtube_data.to_h[:items][timescount][:snippet][:title] %> </p>
+  <p>再生数<%=@youtube_data_count2[timescount][:items][0][:statistics][:view_count]%> </p>
+  <p>高評価<%=@youtube_data_count2[timescount][:items][0][:statistics][:like_count]%> </p>
+  <p>低評価<%=@youtube_data_count2[timescount][:items][0][:statistics][:dislike_count]%> </p>
+  <p>コメント数<%=@youtube_data_count2[timescount][:items][0][:statistics][:comment_count]%> </p>
+  <p>投稿日 <%= @youtube_data.to_h[:items][timescount][:snippet][:published_at] %> </p>
+  <p>チャンネル名 <%= @youtube_data.to_h[:items][timescount][:snippet][:channel_title] %></p>
+  <p>URL <%= "https://www.youtube.com/watch?v=#{@youtube_data.to_h[:items][timescount][:id][:video_id]}" %></p>
+  <p>サムネURL <%= @youtube_data.to_h[:items][timescount][:snippet][:thumbnails][:high][:url] %></p>
+  <div><iframe width="560" height="315" src="https://www.youtube.com/embed/<%=@youtube_data.to_h[:items][timescount][:id][:video_id]%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
 <% end %>
 
-
-<%=@youtube_data_count2%>
-<p>再生数<%=@youtube_data_count2[0][:items][0][:statistics][:view_count]%> </p>
-<p>高評価<%=@youtube_data_count2[0][:items][0][:statistics][:like_count]%> </p>
-<p>低評価<%=@youtube_data_count2[0][:items][0][:statistics][:dislike_count]%> </p>
-<p>コメント数<%=@youtube_data_count2[0][:items][0][:statistics][:comment_count]%> </p>
-
-
-<% @youtube_data.items.each do |item| %>
-  <% snippet = item.snippet %>
-  <p>タイトル <%= snippet.title %></p>
-  <p>投稿日 <%= snippet.published_at %></p>
-  <p>チャンネル名 <%= snippet.channel_title %></p>
-  <p>URL <%= "https://www.youtube.com/watch?v=#{item.id.video_id}" %></p>
-  <p>サムネURL <%= snippet.thumbnails.high.url %></p>
-  <div><iframe width="560" height="315" src="https://www.youtube.com/embed/<%= item.id.video_id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
-  <br>
-<% end %>
