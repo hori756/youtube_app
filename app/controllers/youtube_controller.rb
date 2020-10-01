@@ -2,7 +2,7 @@ class YoutubeController < ApplicationController
   GOOGLE_API_KEY = "AIzaSyDBquVrXQZ--j7h6kMUVgtM_LziXr3HunY"
   #Rails.application.credentials.google[:api_key]
 
-  def find_videos(keyword, after: 10.months.ago, before: Time.now)
+  def find_videos(keyword, after: 100.years.ago, before: Time.now)
     #require 'google/apis/youtube_v3'
     service = Google::Apis::YoutubeV3::YouTubeService.new
     service.key = GOOGLE_API_KEY
@@ -41,9 +41,13 @@ class YoutubeController < ApplicationController
   def count_videos2(youtube_data_count)
     service = Google::Apis::YoutubeV3::YouTubeService.new
     service.key = GOOGLE_API_KEY
-    num=9
     video_cnt_get = service.list_videos(:statistics, id: youtube_data_count[0])
     video_cnt_get_h = video_cnt_get.to_h
+    i=[]
+    i << video_cnt_get_h
+    video_cnt_get = service.list_videos(:statistics, id: youtube_data_count[1])
+    video_cnt_get_h = video_cnt_get.to_h
+    i << video_cnt_get_h
       #video_cnt_get = service.list_videos(:statistics, id: video_id)
       #video_cnt_get_h = video_cnt_get.to_h  
 

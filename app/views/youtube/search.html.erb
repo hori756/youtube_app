@@ -1,11 +1,19 @@
 <h1>検索結果</h1>
 <h1>キーワード</h1>
 <%#= @youtube_data.to_h %>
-<%#=@youtube_data_count2.to_h%>　
-<p>再生数<%=@youtube_data_count2.to_h[:items][0][:statistics][:view_count]%>　</p>
-<p>高評価<%=@youtube_data_count2.to_h[:items][0][:statistics][:like_count]%>　</p>
-<p>低評価<%=@youtube_data_count2.to_h[:items][0][:statistics][:dislike_count]%>　</p>
-<p>コメント数<%=@youtube_data_count2.to_h[:items][0][:statistics][:comment_count]%>　</p>
+
+<%i=5%>
+<%i.times do |timesCount|%>
+<%= timesCount%>
+<% end %>
+
+
+<%=@youtube_data_count2%>
+<p>再生数<%=@youtube_data_count2[0][:items][0][:statistics][:view_count]%>　</p>
+<p>高評価<%=@youtube_data_count2[0][:items][0][:statistics][:like_count]%>　</p>
+<p>低評価<%=@youtube_data_count2[0][:items][0][:statistics][:dislike_count]%>　</p>
+<p>コメント数<%=@youtube_data_count2[0][:items][0][:statistics][:comment_count]%>　</p>
+
 
 <% @youtube_data.items.each do |item| %>
   <% snippet = item.snippet %>
