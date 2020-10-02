@@ -4,8 +4,7 @@
 <%#=@youtube_data_count2%>
 
 
-<%cnt=2%>
-<%cnt.times do |timescount|%>
+<%@max_results.times do |timescount|%>
   <p>タイトル<%= @youtube_data.to_h[:items][timescount][:snippet][:title] %> </p>
   <p>再生数<%=@youtube_data_count[timescount][:items][0][:statistics][:view_count]%> </p>
   <p>高評価<%=@youtube_data_count[timescount][:items][0][:statistics][:like_count]%> </p>
