@@ -4,10 +4,12 @@
   <div class="field">
     <%= form.label :keyword, "キーワード" %>
     <%= form.text_field :keyword %>
+
     <%= form.label :sorting, "並び換え" %>
-    <%= form.text_field :sorting %>
+    <%= form.select :sorting, {'関連度順': 1, 'アップロード順': 2, '視聴回数順': 3, '評価順': 4} %>
   </div>
-<p>視聴回数</p>
+  <br>
+
 after: 8年前, before: 4年前
 <br>
 <p>
