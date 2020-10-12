@@ -7,11 +7,43 @@
 
     <%= form.label :sorting, "並び換え" %>
     <%= form.select :sorting, {'関連度順': 1, 'アップロード順': 2, '視聴回数順': 3, '評価順': 4} %>
-  </div>
-  <br>
-
-after: 8年前, before: 4年前
 <br>
+検索範囲
+
+  <%= form.label :after_date %>
+      <%= raw sprintf(
+                  form.date_select(
+                    :after_date,
+                    class:'select-birth',
+                    id:"birth-date",
+                    use_month_numbers: true,
+                    prompt:'--',
+                    start_year: Time.now.year,
+                    end_year: (1990),
+                    date_separator: '%s'),
+                  " 年 ", " 月 ") + " 日から " %>
+                  <br>
+      <%= raw sprintf(
+                  form.date_select(
+                    :before_date,
+                    class:'select-birth',
+                    id:"birth-date",
+                    use_month_numbers: true,
+                    prompt:'--',
+                    start_year: Time.now.year,
+                    end_year: (1990),
+                    date_separator: '%s'),
+                  " 年 ", " 月 ") + " 日まで " %>
+    <div class="birth_date_field">
+  <%= form.label :birth_date %>
+  <%= form.date_select(
+        :birth_date,
+        start_year: 1930,
+        end_year: (Time.now.year - 18),
+        default: Date.new(1989, 1, 1)) %>
+</div>
+    </div>
+    <br>
 <p>
   <div class="actions">
     <%= form.submit "検索" %>
