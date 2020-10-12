@@ -2,7 +2,7 @@ class YoutubeController < ApplicationController
   GOOGLE_API_KEY = "AIzaSyBKRe4-GEaVFZpnruLxRUge0vc23nhaWNE"
   #Rails.application.credentials.google[:api_key]
   @@max_results = 3
-  def find_videos(keyword,sorting, after: 100.years.ago, before: Time.now)
+  def find_videos(keyword,sorting,  before: Time.now)
     #require 'google/apis/youtube_v3'
     service = Google::Apis::YoutubeV3::YouTubeService.new
     service.key = GOOGLE_API_KEY
@@ -24,7 +24,7 @@ class YoutubeController < ApplicationController
       max_results: @@max_results,
       order: oder,
       page_token: next_page_token,
-      published_after: after.iso8601,
+      published_after: (5.years + 2000.days).ago.iso8601,
       published_before: before.iso8601
     }
     results = service.list_searches(:snippet, opt)
@@ -64,7 +64,7 @@ class YoutubeController < ApplicationController
     @youtube_data_video_id = find_video_id(@youtube_data)
     @youtube_data_count = count_videos(@youtube_data_video_id)
     @max_results = @@max_results
-    @test = params[:keyword],params[:sorting]
+    @test = params[:keyword],params[:sorting],params[:after_date],params[:before_date]
   end
 
   def index
