@@ -1,4 +1,5 @@
 class YoutubeController < ApplicationController
+  before_action :move_to_index, except: [:index]
   GOOGLE_API_KEY = "AIzaSyBKRe4-GEaVFZpnruLxRUge0vc23nhaWNE"
   #Rails.application.credentials.google[:api_key]
   @@max_results = 3
@@ -74,5 +75,7 @@ class YoutubeController < ApplicationController
   end
 
   private 
-
+  def move_to_index
+    redirect_to user_session_path unless user_signed_in?
+  end
 end
