@@ -1,5 +1,4 @@
 <h1>検索内容</h1>
-<%#= link_to '検索', youtube_search_path %>
 <%= form_with(model: @youtube, url: youtube_search_path, local: true) do |form| %>
   <div class="field">
     <%= form.label :keyword, "キーワード" %>
@@ -10,7 +9,6 @@
 <br>
 検索範囲
 
-  <%= form.label :after_date %>
       <%= raw sprintf(
                   form.date_select(
                     :after_date,
@@ -34,14 +32,6 @@
                     end_year: (1990),
                     date_separator: '%s'),
                   " 年 ", " 月 ") + " 日まで " %>
-    <div class="birth_date_field">
-  <%= form.label :birth_date %>
-  <%= form.date_select(
-        :birth_date,
-        start_year: 1930,
-        end_year: (Time.now.year - 18),
-        default: Date.new(1989, 1, 1)) %>
-</div>
     </div>
     <br>
 <p>
