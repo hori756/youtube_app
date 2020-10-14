@@ -1,12 +1,17 @@
 class YoutubeController < ApplicationController
   before_action :move_to_index, except: [:index]
-  GOOGLE_API_KEY = "AIzaSyBKRe4-GEaVFZpnruLxRUge0vc23nhaWNE"
-  #Rails.application.credentials.google[:api_key]
+  KEY1 = ENV["GOOGLE_API_KEY1"]
+  KEY2 = ENV["GOOGLE_API_KEY2"]
+  KEY3 = ENV["GOOGLE_API_KEY3"]
+  KEY4 = ENV["GOOGLE_API_KEY4"]
+  KEY5 = ENV["GOOGLE_API_KEY5"]
+
+  GOOGLE_API_KEY = [KEY1,KEY2,KEY3,KEY4,KEY5]
+
   @@max_results = 3
   def find_videos(keyword ,sorting ,after_date_years ,after_date_months ,after_date_days ,before_date_years ,before_date_months ,before_date_days)
-    #require 'google/apis/youtube_v3'
     service = Google::Apis::YoutubeV3::YouTubeService.new
-    service.key = GOOGLE_API_KEY
+    service.key = GOOGLE_API_KEY[0]
     oder = "relevance"
     case sorting
     when "1"
@@ -29,7 +34,22 @@ class YoutubeController < ApplicationController
       published_after: after_date_years+"-"+after_date_months+"-"+after_date_days+"T00:00:00Z",
       published_before: before_date_years+"-"+before_date_months+"-"+before_date_days+"T00:00:00Z",
     }
-    results = service.list_searches(:snippet, opt)
+
+    begin
+      results = service.list_searches(:snippet, opt)
+    rescue
+      service.key = GOOGLE_API_KEY[1]
+      begin
+        results = service.list_searches(:snippet, opt)
+      rescue
+        service.key = GOOGLE_API_KEY[2]
+        begin
+          results = service.list_searches(:snippet, opt)
+        rescue
+          service.key = GOOGLE_API_KEY[3]
+        end
+      end
+    end
   end
 
   def find_video_id(youtube_data)
@@ -41,24 +61,48 @@ class YoutubeController < ApplicationController
       videos << video
     end
     return videos
-    
     #video_cnt_get = service.list_videos(:statistics, id: video_id)
       #video_cnt_get_h = video_cnt_get.to_h  
   end
 
   def count_videos(youtube_data_video_id)
     service = Google::Apis::YoutubeV3::YouTubeService.new
-    service.key = GOOGLE_API_KEY
+    service.key = GOOGLE_API_KEY[0]
     count_videos=[]
 
-    @@max_results.times do |timesCount|
-      video_cnt_get = service.list_videos(:statistics, id: youtube_data_video_id[timesCount])
-      video_cnt_get_h = video_cnt_get.to_h
-      count_videos << video_cnt_get_h
+    begin
+      @@max_results.times do |timesCount|
+        video_cnt_get = service.list_videos(:statistics, id: youtube_data_video_id[timesCount])
+        video_cnt_get_h = video_cnt_get.to_h
+        count_videos << video_cnt_get_h
+      end
+    rescue
+      service.key = GOOGLE_API_KEY[1]
+      begin
+        @@max_results.times do |timesCount|
+          video_cnt_get = service.list_videos(:statistics, id: youtube_data_video_id[timesCount])
+          video_cnt_get_h = video_cnt_get.to_h
+          count_videos << video_cnt_get_h
+        end
+      rescue
+        service.key = GOOGLE_API_KEY[2]
+        begin
+          @@max_results.times do |timesCount|
+            video_cnt_get = service.list_videos(:statistics, id: youtube_data_video_id[timesCount])
+            video_cnt_get_h = video_cnt_get.to_h
+            count_videos << video_cnt_get_h
+          end
+        rescue
+          service.key = GOOGLE_API_KEY[3]
+          @@max_results.times do |timesCount|
+            video_cnt_get = service.list_videos(:statistics, id: youtube_data_video_id[timesCount])
+            video_cnt_get_h = video_cnt_get.to_h
+            count_videos << video_cnt_get_h
+          end
+        end
+      end
     end
-
-    return count_videos
-
+  return count_videos
   end
 
   def search
@@ -67,7 +111,6 @@ class YoutubeController < ApplicationController
     @youtube_data_count = count_videos(@youtube_data_video_id)
     @max_results = @@max_results
     @test = params[:keyword],params[:sorting],params["after_date(1i)"],params[:after_date],params[:before_date]
-
   end
 
   def index
@@ -75,6 +118,7 @@ class YoutubeController < ApplicationController
   end
 
   private 
+
   def move_to_index
     redirect_to user_session_path unless user_signed_in?
   end
